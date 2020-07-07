@@ -5,6 +5,7 @@ using SFML.System;
 using SFML.Window;
 using PIX_UI.Logger;
 using PIX_UI.Config;
+using PIX_UI.Assets;
 
 namespace PIX_UI
 {
@@ -42,6 +43,16 @@ namespace PIX_UI
         public static bool Setting_ShowLogInConsole;
         public static bool Setting_BackupFullLogFiles;
 
+        //Assets
+        public static AssetManager AssetManager;
+        public static string FontFolder = "fonts";
+        public static string TextureFolder = "textures";
+
+        //Default Assets
+        private bool DefaultAssetLoadFailed = false;
+        public static Font DefaultFont { get; private set; }
+        public static Texture DefaultTexture { get; private set; }
+
 
 
         protected App(string ResourceFolderName, string ConfigFileName, string WindowTitle, uint WindowWidth, uint WindowHeight)
@@ -64,6 +75,16 @@ namespace PIX_UI
 
             //Create Window
             InitWindow(WindowTitle, Styles.Close);
+
+            //Create AssetManager
+            AssetManager = new AssetManager();
+
+            //Load Default Assets
+            if (!LoadDefaultAssets())
+            {
+                Log.Print("Loading Default Assets Failed!", LoggerType.ERROR);
+                DefaultAssetLoadFailed = true;
+            }
         }
 
         //Start App
@@ -94,6 +115,10 @@ namespace PIX_UI
                 AppUpdate();
                 Window.Display();
                 FrameTime = FrameTimeClock.Restart().AsMilliseconds();
+                if (DefaultAssetLoadFailed)
+                {
+                    Exit();
+                }
             }
 
             Log.LoggerDispose();
@@ -149,6 +174,37 @@ namespace PIX_UI
         {
         }
         #endregion
+
+        #region Default Assets
+        private bool LoadDefaultAssets()
+        {
+            //Default Font
+            try
+            {
+                DefaultFont = new Font(Path.Combine(ResourceFolder, FontFolder, "default.ttf"));
+                Log.Print("Default Font Loaded", LoggerType.ASSET);
+            }
+            catch (Exception e)
+            {
+                Log.Print(e.Message, LoggerType.ERROR);
+                return false;
+            }
+
+            //Default Texture
+            try
+            {
+                DefaultTexture = new Texture(Path.Combine(ResourceFolder, TextureFolder, "default.png"));
+                DefaultTexture.Repeated = true;
+                Log.Print("Default Texture Loaded", LoggerType.ASSET);
+            }
+            catch (Exception e)
+            {
+                Log.Print(e.Message, LoggerType.ERROR);
+                return false;
+            }
+            return true;
+        }
+        #endregion Default Assets
 
     }
 }

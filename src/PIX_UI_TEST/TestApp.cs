@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-using PIX_UI;
+﻿using PIX_UI;
 using SFML.Window;
 
 namespace PIX_UI_TEST

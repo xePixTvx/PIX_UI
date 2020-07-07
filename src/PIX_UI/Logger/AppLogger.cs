@@ -56,9 +56,9 @@ namespace PIX_UI.Logger
                 if (UseConsole)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("Main Log: " + text);
+                    Console.WriteLine("MAIN Log: " + text);
                 }
-                Writer_Main.WriteLine("[" + dateTime + "]Main Log: " + text);
+                Writer_Main.WriteLine("[" + dateTime + "]MAIN Log: " + text);
                 Writer_Main.Flush();
             }
             else if (TYPE == LoggerType.ASSET)
