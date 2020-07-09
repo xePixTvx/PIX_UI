@@ -6,6 +6,7 @@ using SFML.Window;
 using PIX_UI.Logger;
 using PIX_UI.Config;
 using PIX_UI.Assets;
+using PIX_UI.Render;
 
 namespace PIX_UI
 {
@@ -53,6 +54,9 @@ namespace PIX_UI
         public static Font DefaultFont { get; private set; }
         public static Texture DefaultTexture { get; private set; }
 
+        //Render System
+        public static RenderSystem RenderSys;
+
 
 
         protected App(string ResourceFolderName, string ConfigFileName, string WindowTitle, uint WindowWidth, uint WindowHeight)
@@ -85,6 +89,9 @@ namespace PIX_UI
                 Log.Print("Loading Default Assets Failed!", LoggerType.ERROR);
                 DefaultAssetLoadFailed = true;
             }
+
+            //Create Render System
+            RenderSys = new RenderSystem();
         }
 
         //Start App
@@ -113,6 +120,7 @@ namespace PIX_UI
                 Window.DispatchEvents();
                 Window.Clear(WindowBackgroundColor);
                 AppUpdate();
+                RenderSys.Render();
                 Window.Display();
                 FrameTime = FrameTimeClock.Restart().AsMilliseconds();
                 if (DefaultAssetLoadFailed)
