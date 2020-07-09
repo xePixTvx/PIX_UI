@@ -1,4 +1,7 @@
 ﻿using PIX_UI.Graphics.Interfaces;
+using SFML.Graphics;
+using SFML.System;
+using System;
 
 namespace PIX_UI.Graphics.Bases
 {
@@ -8,6 +11,12 @@ namespace PIX_UI.Graphics.Bases
         private bool _IsActive = true;
         private bool _IsVisible = true;
         private bool _NeedsUpdate = false;
+
+        private Alignment _Origin_Alignment = Alignment.LEFT_TOP;
+        private Alignment _Position_Alignment = Alignment.LEFT_TOP;
+        private Vector2f _Position = new Vector2f(0, 0);
+        private float _Rotation = 0;
+        private Color _Color = new Color(255, 255, 255, 255);
 
         public virtual int RenderLayer
         {
@@ -45,6 +54,58 @@ namespace PIX_UI.Graphics.Bases
         public virtual void Render()
         {
             App.Log.Print("Render() not defined for " + this, Logger.LoggerType.ERROR);
+        }
+
+
+
+        public virtual Alignment Origin_Alignment
+        {
+            get { return _Origin_Alignment; }
+            set 
+            { 
+                _Origin_Alignment = value;
+                _NeedsUpdate = true;
+            }
+        }
+
+        public virtual Alignment Position_Alignment
+        {
+            get { return _Position_Alignment; }
+            set 
+            { 
+                _Position_Alignment = value;
+                _NeedsUpdate = true;
+            }
+        }
+
+        public virtual Vector2f Position
+        {
+            get { return _Position; }
+            set 
+            { 
+                _Position = value;
+                _NeedsUpdate = true;
+            }
+        }
+
+        public virtual float Rotation
+        {
+            get { return _Rotation; }
+            set 
+            { 
+                _Rotation = value;
+                _NeedsUpdate = true;
+            }
+        }
+
+        public virtual Color Color
+        {
+            get { return _Color; }
+            set 
+            {
+                _Color = value;
+                _NeedsUpdate = true;
+            }
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace PIX_UI.Graphics.Interfaces
+﻿using SFML.System;
+using SFML.Graphics;
+
+namespace PIX_UI.Graphics.Interfaces
 {
     public interface IRenderable
     {
@@ -8,5 +11,11 @@
         bool NeedsUpdate { get; set; }
         void Update();
         void Render();
+
+        Alignment Origin_Alignment { get; set; }
+        Alignment Position_Alignment { get; set; }
+        Vector2f Position { get; set; }
+        float Rotation { get; set; }
+        Color Color { get; set; }
     }
 }

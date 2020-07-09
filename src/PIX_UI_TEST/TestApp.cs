@@ -10,7 +10,7 @@ namespace PIX_UI_TEST
 
         public TestApp(string ResourceFolderName, string ConfigFileName, string WindowTitle, uint WindowWidth, uint WindowHeight) : base(ResourceFolderName, ConfigFileName, WindowTitle, WindowWidth, WindowHeight)
         {
-            TestRect = new Rect();
+            TestRect = new Rect(Alignment.LEFT_TOP, Alignment.LEFT_TOP, 0, 0, new SFML.Graphics.Color(255, 0, 0, 255));
         }
 
         protected override void AppUpdate()
@@ -29,6 +29,7 @@ namespace PIX_UI_TEST
             }
             if(e.Code == Keyboard.Key.A)
             {
+                TestRect.NeedsUpdate = true;
             }
         }
     }
