@@ -5,26 +5,26 @@ using SFML.System;
 
 namespace PIX_UI.Graphics.Primitives
 {
-    public class Rect : RenderableBase
+    public class Circle : RenderableBase
     {
-        private RectangleShape Shape;
-        private Vector2f _Size;
+        private CircleShape Shape;
+        private float _Radius;
 
-        public Vector2f Size
+        public float Radius
         {
-            get { return _Size; }
+            get { return _Radius; }
             set
             {
-                _Size = value;
+                _Radius = value;
                 NeedsUpdate = true;
             }
         }
 
-        public Rect(string _Name, Alignment Origin_Align, Alignment Position_Align, float Width, float Height, float Pos_X, float Pos_Y, Color RGBA)
+        public Circle(string _Name, Alignment Origin_Align, Alignment Position_Align, float Size, float Pos_X, float Pos_Y, Color RGBA)
         {
             Name = _Name;
-            Shape = new RectangleShape();
-            Size = new Vector2f(Width, Height);
+            Shape = new CircleShape();
+            Radius = Size;
             Origin_Alignment = Origin_Align;
             Position_Alignment = Position_Align;
             Position = new Vector2f(Pos_X, Pos_Y);
@@ -35,8 +35,8 @@ namespace PIX_UI.Graphics.Primitives
 
         public override void Update()
         {
-            //Size
-            Shape.Size = Size;
+            //Radius
+            Shape.Radius = Radius;
 
             //Origin Align
             Vector2f Origin_Pos = Position_Utils.GetAlignOrigin(Origin_Alignment, Shape);

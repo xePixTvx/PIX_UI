@@ -7,6 +7,7 @@ using PIX_UI.Logger;
 using PIX_UI.Config;
 using PIX_UI.Assets;
 using PIX_UI.Render;
+using PIX_UI.Graphics.Interfaces;
 
 namespace PIX_UI
 {
@@ -213,6 +214,22 @@ namespace PIX_UI
             return true;
         }
         #endregion Default Assets
+
+
+
+        //Test
+        public IRenderable GetElemByName(string ElemName)
+        {
+            foreach(IRenderable elem in RenderSys.GetRenderList())
+            {
+                if(elem.Name == ElemName)
+                {
+                    return elem;
+                }
+            }
+            return null;
+        }
+
 
     }
 }

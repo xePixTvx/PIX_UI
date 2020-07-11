@@ -7,6 +7,7 @@ namespace PIX_UI.Graphics.Bases
 {
     public class RenderableBase : IRenderable
     {
+        private string _Name = "UNDEFINED_NAME";
         private int _RenderLayer = 0;
         private bool _IsActive = true;
         private bool _IsVisible = true;
@@ -17,6 +18,19 @@ namespace PIX_UI.Graphics.Bases
         private Vector2f _Position = new Vector2f(0, 0);
         private float _Rotation = 0;
         private Color _Color = new Color(255, 255, 255, 255);
+
+        public virtual string Name
+        {
+            get 
+            { 
+                if(_Name == "UNDEFINED_NAME")
+                {
+                    App.Log.Print("Name not defined for " + this, Logger.LoggerType.ERROR);
+                }
+                return _Name; 
+            }
+            set { _Name = value; }
+        }
 
         public virtual int RenderLayer
         {
@@ -48,12 +62,17 @@ namespace PIX_UI.Graphics.Bases
 
         public virtual void Update()
         {
-            App.Log.Print("Update() not defined for " + this, Logger.LoggerType.ERROR);
+            App.Log.Print("Update() not defined for " + Name, Logger.LoggerType.ERROR);
         }
 
         public virtual void Render()
         {
-            App.Log.Print("Render() not defined for " + this, Logger.LoggerType.ERROR);
+            App.Log.Print("Render() not defined for " + Name, Logger.LoggerType.ERROR);
+        }
+
+        public virtual void Destroy()
+        {
+            App.Log.Print("Destroy() not defined for " + Name, Logger.LoggerType.ERROR);
         }
 
 

@@ -5,12 +5,14 @@ namespace PIX_UI.Graphics.Interfaces
 {
     public interface IRenderable
     {
+        string Name { get; set; }
         int RenderLayer { get; set; }
         bool IsActive { get; set; }
         bool IsVisible { get; set; }
         bool NeedsUpdate { get; set; }
         void Update();
         void Render();
+        void Destroy();
 
         Alignment Origin_Alignment { get; set; }
         Alignment Position_Alignment { get; set; }

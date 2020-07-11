@@ -31,6 +31,10 @@ namespace PIX_UI.Render
             RenderList = sortedList;
         }
 
+        public List<IRenderable> GetRenderList()
+        {
+            return RenderList;
+        }
 
         public void Render()
         {
