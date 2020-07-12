@@ -8,6 +8,7 @@ using PIX_UI.Config;
 using PIX_UI.Assets;
 using PIX_UI.Render;
 using PIX_UI.Graphics.Interfaces;
+using PIX_UI.Graphics.Primitives;
 
 namespace PIX_UI
 {

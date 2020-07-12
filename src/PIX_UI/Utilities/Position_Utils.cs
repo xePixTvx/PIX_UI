@@ -32,5 +32,21 @@ namespace PIX_UI.Utilities
             float y = (_Align[1] == "CENTER") ? Shape.Radius : (_Align[1] == "BOTTOM") ? (Shape.Radius * 2) : 0;
             return new Vector2f(x, y);
         }
+
+        public static Vector2f GetAlignOrigin(Alignment Align, Text Shape)
+        {
+            string[] _Align = Align.ToString().Split('_');
+            float x = (_Align[0] == "CENTER") ? (Shape.GetGlobalBounds().Width * (float)0.5) : (_Align[0] == "RIGHT") ? Shape.GetGlobalBounds().Width : 0;
+            float y = (_Align[1] == "CENTER") ? (Shape.GetGlobalBounds().Height * (float)0.5) : (_Align[1] == "BOTTOM") ? Shape.GetGlobalBounds().Height : 0;
+            return new Vector2f(x, y);
+        }
+
+        public static Vector2f GetAlignOrigin(Alignment Align, Sprite Shape)
+        {
+            string[] _Align = Align.ToString().Split('_');
+            float x = (_Align[0] == "CENTER") ? (Shape.Texture.Size.X * (float)0.5) : (_Align[0] == "RIGHT") ? Shape.Texture.Size.X : 0;
+            float y = (_Align[1] == "CENTER") ? (Shape.Texture.Size.Y * (float)0.5) : (_Align[1] == "BOTTOM") ? Shape.Texture.Size.Y : 0;
+            return new Vector2f(x, y);
+        }
     }
 }
