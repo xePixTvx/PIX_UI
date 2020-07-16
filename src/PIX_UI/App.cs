@@ -108,7 +108,6 @@ namespace PIX_UI
         public void Exit()
         {
             Log.Print("---------- APP CLOSED ----------");
-            OnAppClosing();
             IsActive = false;
         }
 
@@ -130,7 +129,7 @@ namespace PIX_UI
                     Exit();
                 }
             }
-
+            OnAppClosing();
             Log.LoggerDispose();
             Window.Close();
         }
@@ -166,22 +165,39 @@ namespace PIX_UI
         {
             Log.Print("Init Event Handlers");
             Window.Closed += (_, __) => Exit();
-            Window.MouseButtonReleased += new EventHandler<MouseButtonEventArgs>(onMouseButtonReleased);
-            Window.MouseButtonPressed += new EventHandler<MouseButtonEventArgs>(onMouseButtonPressed);
-            Window.KeyReleased += new EventHandler<KeyEventArgs>(onKeyReleased);
-            Window.KeyPressed += new EventHandler<KeyEventArgs>(onKeyPressed);
+            Window.MouseButtonReleased += new EventHandler<MouseButtonEventArgs>(OnMouseButtonReleased);
+            Window.MouseButtonPressed += new EventHandler<MouseButtonEventArgs>(OnMouseButtonPressed);
+            Window.MouseButtonPressed += new EventHandler<MouseButtonEventArgs>(OnMouseButtonPressed_ClickableElems);
+            Window.KeyReleased += new EventHandler<KeyEventArgs>(OnKeyReleased);
+            Window.KeyPressed += new EventHandler<KeyEventArgs>(OnKeyPressed);
         }
-        protected virtual void onMouseButtonReleased(object sender, MouseButtonEventArgs e)
+        protected virtual void OnMouseButtonReleased(object sender, MouseButtonEventArgs e)
         {
         }
-        protected virtual void onMouseButtonPressed(object sender, MouseButtonEventArgs e)
+        protected virtual void OnMouseButtonPressed(object sender, MouseButtonEventArgs e)
         {
         }
-        protected virtual void onKeyReleased(object sender, KeyEventArgs e)
+        protected virtual void OnKeyReleased(object sender, KeyEventArgs e)
         {
         }
-        protected virtual void onKeyPressed(object sender, KeyEventArgs e)
+        protected virtual void OnKeyPressed(object sender, KeyEventArgs e)
         {
+        }
+        public void OnMouseButtonPressed_ClickableElems(object sender, MouseButtonEventArgs e)
+        {
+            if(e.Button == Mouse.Button.Left)
+            {
+                foreach(IRenderable elem in RenderSys.GetRenderList())
+                {
+                    if (elem.IsActive && elem is IClickable clickElem)
+                    {
+                        if (clickElem.IsSelected)
+                        {
+                            clickElem.ExecuteAction();
+                        }
+                    }
+                }
+            }
         }
         #endregion
 

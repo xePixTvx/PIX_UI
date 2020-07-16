@@ -1,6 +1,7 @@
 ﻿using SFML.System;
 using SFML.Graphics;
 using PIX_UI.Graphics;
+using SFML.Window;
 
 namespace PIX_UI.Utilities
 {
@@ -47,6 +48,25 @@ namespace PIX_UI.Utilities
             float x = (_Align[0] == "CENTER") ? (Shape.Texture.Size.X * (float)0.5) : (_Align[0] == "RIGHT") ? Shape.Texture.Size.X : 0;
             float y = (_Align[1] == "CENTER") ? (Shape.Texture.Size.Y * (float)0.5) : (_Align[1] == "BOTTOM") ? Shape.Texture.Size.Y : 0;
             return new Vector2f(x, y);
+        }
+
+        public static bool IsHovered(Sprite sprite)
+        {
+            RenderWindow window = App.Window;
+            if (sprite.GetGlobalBounds().Contains(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y) && window.HasFocus())
+            {
+                return true;
+            }
+            return false;
+        }
+        public static bool IsHovered(RectangleShape rect)
+        {
+            RenderWindow window = App.Window;
+            if (rect.GetGlobalBounds().Contains(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y) && window.HasFocus())
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

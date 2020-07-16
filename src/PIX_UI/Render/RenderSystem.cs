@@ -46,6 +46,12 @@ namespace PIX_UI.Render
                     {
                         elem.Update();
                     }
+
+                    if(elem is IClickable clickElem)
+                    {
+                        clickElem.UpdateSelection();
+                    }
+
                     if(elem.IsVisible)
                     {
                         elem.Render();
