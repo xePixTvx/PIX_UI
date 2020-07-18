@@ -15,7 +15,6 @@ namespace PIX_UI.Graphics.Interfaces
         void Destroy();
 
         Alignment Origin_Alignment { get; set; }
-        Alignment Position_Alignment { get; set; }
         Vector2f Position { get; set; }
         float Rotation { get; set; }
         Color Color { get; set; }

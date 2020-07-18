@@ -20,13 +20,12 @@ namespace PIX_UI.Graphics.Primitives
             }
         }
 
-        public Triangle(string _Name, Alignment Origin_Align, Alignment Position_Align, float Size, float Pos_X, float Pos_Y, Color RGBA)
+        public Triangle(string _Name, Alignment Origin_Align, float Size, float Pos_X, float Pos_Y, Color RGBA)
         {
             Name = _Name;
             Shape = new CircleShape(Size, 3);
             Radius = Size;
             Origin_Alignment = Origin_Align;
-            Position_Alignment = Position_Align;
             Position = new Vector2f(Pos_X, Pos_Y);
             Color = RGBA;
 
@@ -43,8 +42,7 @@ namespace PIX_UI.Graphics.Primitives
             Shape.Origin = Origin_Pos;
 
             //Position + Position Align
-            Vector2f Align_Pos = Position_Utils.GetAlignPosition(Position_Alignment);
-            Shape.Position = new Vector2f(Align_Pos.X + Position.X, Align_Pos.Y + Position.Y);
+            Shape.Position = new Vector2f(Position.X, Position.Y);
 
             //Rotation
             Shape.Rotation = Rotation;

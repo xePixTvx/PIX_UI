@@ -14,7 +14,6 @@ namespace PIX_UI.Graphics.Bases
         private bool _NeedsUpdate = false;
 
         private Alignment _Origin_Alignment = Alignment.LEFT_TOP;
-        private Alignment _Position_Alignment = Alignment.LEFT_TOP;
         private Vector2f _Position = new Vector2f(0, 0);
         private float _Rotation = 0;
         private Color _Color = new Color(255, 255, 255, 255);
@@ -83,16 +82,6 @@ namespace PIX_UI.Graphics.Bases
             set 
             { 
                 _Origin_Alignment = value;
-                _NeedsUpdate = true;
-            }
-        }
-
-        public virtual Alignment Position_Alignment
-        {
-            get { return _Position_Alignment; }
-            set 
-            { 
-                _Position_Alignment = value;
                 _NeedsUpdate = true;
             }
         }

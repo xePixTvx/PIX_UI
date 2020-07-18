@@ -7,7 +7,7 @@ namespace PIX_UI.Utilities
 {
     public class Position_Utils
     {
-        public static Vector2f GetAlignPosition(Alignment Align)
+        public static Vector2f GetPositionOnScreen(Alignment Align)
         {
             uint win_width = App.WindowSize.Width;
             uint win_height = App.WindowSize.Height;

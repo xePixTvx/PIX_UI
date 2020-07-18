@@ -53,7 +53,7 @@ namespace PIX_UI.Graphics.Primitives
             }
         }
 
-        public SimpleText(string _Name, Alignment Origin_Align, Alignment Position_Align, float Pos_X, float Pos_Y, Color RGBA, string Font_Name, uint Char_Size, Text.Styles Text_Style, string TextToDisplay = "")
+        public SimpleText(string _Name, Alignment Origin_Align, float Pos_X, float Pos_Y, Color RGBA, string Font_Name, uint Char_Size, Text.Styles Text_Style, string TextToDisplay = "")
         {
             Name = _Name;
             Shape = new Text();
@@ -62,7 +62,6 @@ namespace PIX_UI.Graphics.Primitives
             TextStyle = Text_Style;
             String = TextToDisplay;
             Origin_Alignment = Origin_Align;
-            Position_Alignment = Position_Align;
             Position = new Vector2f(Pos_X, Pos_Y);
             Color = RGBA;
 
@@ -88,8 +87,7 @@ namespace PIX_UI.Graphics.Primitives
             Shape.Origin = Origin_Pos;
 
             //Position + Position Align
-            Vector2f Align_Pos = Position_Utils.GetAlignPosition(Position_Alignment);
-            Shape.Position = new Vector2f(Align_Pos.X + Position.X, Align_Pos.Y + Position.Y);
+            Shape.Position = new Vector2f(Position.X, Position.Y);
 
             //Rotation
             Shape.Rotation = Rotation;
