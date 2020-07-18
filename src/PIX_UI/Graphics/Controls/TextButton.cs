@@ -4,6 +4,9 @@ using SFML.Graphics;
 using SFML.System;
 using System;
 
+
+//TEXT ALIGNMENT UNFINISHED!!!!!
+
 namespace PIX_UI.Graphics.Controls
 {
     public class TextButton : ClickableBase
@@ -14,7 +17,12 @@ namespace PIX_UI.Graphics.Controls
         private string _FontName;
         private uint _CharSize;
         private string _String;
+        private Color _BG_Color;
+        private Color _FG_Color;
         private ButtonTextStyles _TextStyle;
+
+        //private CircleShape show_origin_BG;
+        //private CircleShape show_origin_Text;
 
         public Vector2f Size
         {
@@ -66,8 +74,28 @@ namespace PIX_UI.Graphics.Controls
             }
         }
 
+        public Color BG_Color
+        {
+            get { return _BG_Color; }
+            set
+            {
+                _BG_Color = value;
+                NeedsUpdate = true;
+            }
+        }
 
-        public TextButton(string _Name, Alignment Origin_Align, float Width, float Height, float Pos_X, float Pos_Y, string Font_Name, uint Char_Size, string TextToDisplay, ButtonTextStyles ButtonTextStyle = ButtonTextStyles.CENTER, Action Exec = null)
+        public Color FG_Color
+        {
+            get { return _FG_Color; }
+            set
+            {
+                _FG_Color = value;
+                NeedsUpdate = true;
+            }
+        }
+
+
+        public TextButton(string _Name, Alignment Origin_Align, float Width, float Height, float Pos_X, float Pos_Y, string Font_Name, uint Char_Size, string TextToDisplay, Color Background_Color, Color Foreground_Color, ButtonTextStyles ButtonTextStyle = ButtonTextStyles.CENTER, Action Exec = null)
         {
             Name = _Name;
             BG_Shape = new RectangleShape();
@@ -78,11 +106,25 @@ namespace PIX_UI.Graphics.Controls
 
             Text_Shape = new Text();
             Text_Shape.Style = Text.Styles.Regular;
-            Text_Shape.FillColor = new Color(255, 255, 255, 255);//Add for Updating!!!!
             FontName = Font_Name;
             CharSize = Char_Size;
             String = TextToDisplay;
             TextStyle = ButtonTextStyle;
+
+            BG_Color = Background_Color;
+            FG_Color = Foreground_Color;
+
+            /*show_origin_BG = new CircleShape
+            {
+                Radius = 5,
+                FillColor = new Color(0, 0, 255, 255)
+            };
+
+            show_origin_Text = new CircleShape
+            {
+                Radius = 5,
+                FillColor = new Color(0, 255, 0, 255)
+            };*/
 
             App.RenderSys.AddToRenderList(this);
         }
@@ -106,13 +148,21 @@ namespace PIX_UI.Graphics.Controls
             //Position + Position Align ---- BG
             BG_Shape.Position = new Vector2f(Position.X, Position.Y);
 
-            Vector2f Text_Origin_Pos = Position_Utils.GetAlignOrigin(Origin_Alignment, Text_Shape);
+            Vector2f Text_Origin_Pos = Position_Utils.GetAlignOrigin(Alignment.CENTER_CENTER, Text_Shape);
             Text_Shape.Origin = Text_Origin_Pos;
             Text_Shape.Position = new Vector2f(BG_Shape.Position.X, BG_Shape.Position.Y - (Text_Shape.GetGlobalBounds().Height / 2));
+
+            /*show_origin_BG.Origin = Position_Utils.GetAlignOrigin(Alignment.CENTER_CENTER, show_origin_BG);
+            show_origin_BG.Position = BG_Shape.Position;
+            show_origin_Text.Origin = Position_Utils.GetAlignOrigin(Alignment.CENTER_CENTER, show_origin_Text);
+            show_origin_Text.Position = Text_Shape.Position;*/
 
             //Rotation
             BG_Shape.Rotation = Rotation;
             Text_Shape.Rotation = Rotation;
+
+            //Color
+            Text_Shape.FillColor = FG_Color;
 
             NeedsUpdate = false;
         }
@@ -121,6 +171,9 @@ namespace PIX_UI.Graphics.Controls
         {
             App.Window.Draw(BG_Shape);
             App.Window.Draw(Text_Shape);
+
+            //App.Window.Draw(show_origin_BG);
+            //App.Window.Draw(show_origin_Text);
         }
 
         public override void Destroy()
@@ -140,11 +193,11 @@ namespace PIX_UI.Graphics.Controls
 
             if (IsSelected)
             {
-                BG_Shape.FillColor = new Color(255, 255, 255, 255);
+                BG_Shape.FillColor = new Color(BG_Color.R, BG_Color.G, BG_Color.B, 255);
             }
             else
             {
-                BG_Shape.FillColor = new Color(255, 255, 255, 180);
+                BG_Shape.FillColor = new Color(BG_Color.R, BG_Color.G, BG_Color.B, 130);
             }
         }
     }

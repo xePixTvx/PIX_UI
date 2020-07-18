@@ -1,7 +1,5 @@
 ﻿using PIX_UI.Graphics.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PIX_UI.Graphics.Bases
 {

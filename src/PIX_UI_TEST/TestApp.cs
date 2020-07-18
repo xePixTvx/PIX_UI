@@ -27,7 +27,11 @@ namespace PIX_UI_TEST
             new SimpleSprite("TestSprite1", Alignment.RIGHT_TOP, POS_RIGHT_TOP.X, POS_RIGHT_TOP.Y, "default");
 
             new SpriteButton("TestSpriteButton1", Alignment.LEFT_BOTTOM, POS_LEFT_BOTTOM.X, POS_LEFT_BOTTOM.Y, "default");
-            new TextButton("TestTextButton1", Alignment.LEFT_TOP, 200, 30, 0, 0, "default", 16, "Test Button 1", ButtonTextStyles.CENTER);
+            new TextButton("TestTextButton1", Alignment.CENTER_CENTER, 200, 30, POS_CENTER_CENTER.X, POS_CENTER_CENTER.Y, "default", 16, "Test Button 1", new SFML.Graphics.Color(0, 0, 0), new SFML.Graphics.Color(255, 255, 255, 255), ButtonTextStyles.CENTER);
+            new ProgressBar("TestBar1", 400, 50, POS_CENTER_CENTER.X, POS_CENTER_CENTER.Y - 200, ProgressBarStyles.HORIZONTAL, new SFML.Graphics.Color(255, 255, 255, 255), new SFML.Graphics.Color(255, 0, 0, 255), 50);
+
+
+
         }
 
         protected override void AppUpdate()

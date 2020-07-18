@@ -76,7 +76,7 @@ namespace PIX_UI.Graphics.Controls
             }
             else
             {
-                Shape.Color = new Color(255, 255, 255, 180);
+                Shape.Color = new Color(255, 255, 255, 130);
             }
         }
 

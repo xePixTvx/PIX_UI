@@ -1,7 +1,6 @@
 ﻿using PIX_UI.Graphics.Interfaces;
 using SFML.Graphics;
 using SFML.System;
-using System;
 
 namespace PIX_UI.Graphics.Bases
 {

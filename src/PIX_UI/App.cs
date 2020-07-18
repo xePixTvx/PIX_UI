@@ -7,8 +7,10 @@ using PIX_UI.Logger;
 using PIX_UI.Config;
 using PIX_UI.Assets;
 using PIX_UI.Render;
+using PIX_UI.Graphics;
 using PIX_UI.Graphics.Interfaces;
 using PIX_UI.Graphics.Primitives;
+using PIX_UI.Utilities;
 
 namespace PIX_UI
 {
@@ -45,6 +47,7 @@ namespace PIX_UI
         //Basic/Main App Settings
         public static bool Setting_ShowLogInConsole;
         public static bool Setting_BackupFullLogFiles;
+        public static bool Setting_ShowFPS;
 
         //Assets
         public static AssetManager AssetManager;
@@ -59,6 +62,9 @@ namespace PIX_UI
         //Render System
         public static RenderSystem RenderSys;
 
+        //FPS Text
+        private SimpleText FPS_Text;
+
 
 
         protected App(string ResourceFolderName, string ConfigFileName, string WindowTitle, uint WindowWidth, uint WindowHeight)
@@ -72,6 +78,7 @@ namespace PIX_UI
             //Load Basic/Main App Settings from Config File
             Setting_ShowLogInConsole = (Config.GetConfigSetting("MAIN", "ShowLogInConsole", "false") == "true") ? true : false;
             Setting_BackupFullLogFiles = (Config.GetConfigSetting("MAIN", "BackupFullLogFiles", "true") == "true") ? true : false;
+            Setting_ShowFPS = (Config.GetConfigSetting("MAIN", "ShowFPS", "false") == "true") ? true : false;
 
             //Create Logger
             Log = new AppLogger(Setting_ShowLogInConsole, Setting_BackupFullLogFiles);
@@ -94,6 +101,15 @@ namespace PIX_UI
 
             //Create Render System
             RenderSys = new RenderSystem();
+
+            //Create Fps Text
+            Vector2f FPS_POS = Position_Utils.GetPositionOnScreen(Alignment.LEFT_TOP);
+            FPS_Text = new SimpleText("APP_FPS_TEXT_MAIN", Alignment.LEFT_TOP, FPS_POS.X, FPS_POS.Y, new Color(255, 255, 255, 255), "default", 16, Text.Styles.Regular, "");
+            FPS_Text.RenderLayer = 999;
+            if(!Setting_ShowFPS)
+            {
+                FPS_Text.IsActive = false;
+            }
         }
 
         //Start App
@@ -120,6 +136,13 @@ namespace PIX_UI
             {
                 Window.DispatchEvents();
                 Window.Clear(WindowBackgroundColor);
+
+                //Update FPS Text
+                if(Setting_ShowFPS && FPS_Text.IsActive)
+                {
+                    FPS_Text.String = "FPS: " + GetFPS() + " ------ " + GetFrameTime() + " MS";
+                }
+
                 AppUpdate();
                 RenderSys.Render();
                 Window.Display();
