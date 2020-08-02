@@ -16,7 +16,6 @@ namespace PIX_UI.Graphics.Interfaces
 
         Alignment Origin_Alignment { get; set; }
         Vector2f Position { get; set; }
-        float Rotation { get; set; }
         Color Color { get; set; }
     }
 }

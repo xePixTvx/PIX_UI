@@ -42,12 +42,7 @@ namespace PIX_UI
         public static string ResourceFolder { get; private set; } = Path.Combine(Environment.CurrentDirectory, "data");
 
         //Config
-        public static ConfigFile Config;
-
-        //Basic/Main App Settings
-        public static bool Setting_ShowLogInConsole;
-        public static bool Setting_BackupFullLogFiles;
-        public static bool Setting_ShowFPS;
+        public static Config.Config Config;
 
         //Assets
         public static AssetManager AssetManager;
@@ -73,15 +68,10 @@ namespace PIX_UI
             ResourceFolder = Path.Combine(Environment.CurrentDirectory, ResourceFolderName);
 
             //Create/Load Config
-            Config = new ConfigFile(ConfigFileName);
-
-            //Load Basic/Main App Settings from Config File
-            Setting_ShowLogInConsole = (Config.GetConfigSetting("MAIN", "ShowLogInConsole", "false") == "true") ? true : false;
-            Setting_BackupFullLogFiles = (Config.GetConfigSetting("MAIN", "BackupFullLogFiles", "true") == "true") ? true : false;
-            Setting_ShowFPS = (Config.GetConfigSetting("MAIN", "ShowFPS", "false") == "true") ? true : false;
+            Config = new Config.Config(Path.Combine(ResourceFolder, "config", ConfigFileName));
 
             //Create Logger
-            Log = new AppLogger(Setting_ShowLogInConsole, Setting_BackupFullLogFiles);
+            Log = new AppLogger(Config.LOGGER_USE_CONSOLE, Config.LOGGER_BACKUP_FULL_LOGS);
 
             //Set Window Size
             WindowSize = new VideoMode(WindowWidth, WindowHeight);
@@ -106,7 +96,7 @@ namespace PIX_UI
             Vector2f FPS_POS = Position_Utils.GetPositionOnScreen(Alignment.LEFT_TOP);
             FPS_Text = new SimpleText("APP_FPS_TEXT_MAIN", Alignment.LEFT_TOP, FPS_POS.X, FPS_POS.Y, new Color(255, 255, 255, 255), "default", 16, Text.Styles.Regular, "");
             FPS_Text.RenderLayer = 999;
-            if(!Setting_ShowFPS)
+            if(!Config.SHOW_FPS)
             {
                 FPS_Text.IsActive = false;
             }
@@ -138,7 +128,7 @@ namespace PIX_UI
                 Window.Clear(WindowBackgroundColor);
 
                 //Update FPS Text
-                if(Setting_ShowFPS && FPS_Text.IsActive)
+                if(Config.SHOW_FPS && FPS_Text.IsActive)
                 {
                     FPS_Text.String = "FPS: " + GetFPS() + " ------ " + GetFrameTime() + " MS";
                 }
@@ -258,7 +248,7 @@ namespace PIX_UI
 
 
         //Test
-        public IRenderable GetElemByName(string ElemName)
+        public static IRenderable GetElemByName(string ElemName)
         {
             foreach(IRenderable elem in RenderSys.GetRenderList())
             {

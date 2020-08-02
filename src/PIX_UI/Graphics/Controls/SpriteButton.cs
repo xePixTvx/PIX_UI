@@ -45,9 +45,6 @@ namespace PIX_UI.Graphics.Controls
             //Position + Position Align
             Shape.Position = new Vector2f(Position.X, Position.Y);
 
-            //Rotation
-            Shape.Rotation = Rotation;
-
             NeedsUpdate = false;
         }
 

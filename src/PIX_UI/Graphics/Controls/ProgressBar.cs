@@ -115,10 +115,6 @@ namespace PIX_UI.Graphics.Controls
                 App.Log.Print("Unknown ProgressBarStyle for " + this.Name, Logger.LoggerType.ERROR);
             }
 
-            //Rotation
-            BG_Shape.Rotation = Rotation;
-            Fill_Shape.Rotation = Rotation;
-
             //Color
             BG_Shape.FillColor = BG_Color;
             Fill_Shape.FillColor = Fill_Color;

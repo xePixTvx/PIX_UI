@@ -157,10 +157,6 @@ namespace PIX_UI.Graphics.Controls
             show_origin_Text.Origin = Position_Utils.GetAlignOrigin(Alignment.CENTER_CENTER, show_origin_Text);
             show_origin_Text.Position = Text_Shape.Position;*/
 
-            //Rotation
-            BG_Shape.Rotation = Rotation;
-            Text_Shape.Rotation = Rotation;
-
             //Color
             Text_Shape.FillColor = FG_Color;
 

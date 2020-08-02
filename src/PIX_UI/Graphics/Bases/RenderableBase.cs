@@ -14,7 +14,6 @@ namespace PIX_UI.Graphics.Bases
 
         private Alignment _Origin_Alignment = Alignment.LEFT_TOP;
         private Vector2f _Position = new Vector2f(0, 0);
-        private float _Rotation = 0;
         private Color _Color = new Color(255, 255, 255, 255);
 
         public virtual string Name
@@ -91,16 +90,6 @@ namespace PIX_UI.Graphics.Bases
             set 
             { 
                 _Position = value;
-                _NeedsUpdate = true;
-            }
-        }
-
-        public virtual float Rotation
-        {
-            get { return _Rotation; }
-            set 
-            { 
-                _Rotation = value;
                 _NeedsUpdate = true;
             }
         }

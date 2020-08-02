@@ -89,9 +89,6 @@ namespace PIX_UI.Graphics.Primitives
             //Position + Position Align
             Shape.Position = new Vector2f(Position.X, Position.Y);
 
-            //Rotation
-            Shape.Rotation = Rotation;
-
             //Color
             Shape.FillColor = Color;
 
